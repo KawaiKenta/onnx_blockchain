@@ -14,6 +14,21 @@
         }
     ],
     "onnx_meta": {
-        "error": "[Errno 2] No such file or directory: 'path/to/output.onnx'"
+        "ir_version": 6,
+        "producer_name": "pytorch",
+        "producer_version": "2.0.1",
+        "domain": "",
+        "model_version": 0,
+        "doc_string": "",
+        "graph_name": "torch_jit",
+        "graph_doc_string": "",
+        "inputs": [
+            "input_pillars",
+            "input_coors_batch",
+            "input_npoints_per_pillar"
+        ],
+        "outputs": [
+            "output_x"
+        ]
     }
 }
