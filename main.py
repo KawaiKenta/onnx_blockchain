@@ -1,3 +1,4 @@
+import hashlib
 import json
 import subprocess
 import sys
@@ -35,16 +36,24 @@ def get_onnx_metadata(onnx_file):
             "graph_name": model.graph.name,
             "graph_doc_string": model.graph.doc_string,
             "inputs": [input.name for input in model.graph.input],
-            "outputs": [output.name for output in model.graph.output]
+            "outputs": [output.name for output in model.graph.output],
         }
         return metadata
     except Exception as e:
         return {"error": str(e)}
 
-def save_results(results, onnx_metadata, file_path='results.json'):
+def calculate_checksum(file_path):
+    sha256_hash = hashlib.sha256()
+    with open(file_path, "rb") as f:
+        for byte_block in iter(lambda: f.read(4096), b""):
+            sha256_hash.update(byte_block)
+    return sha256_hash.hexdigest()
+
+def save_results(results, onnx_metadata, checksum, file_path='results.json'):
     final_result = {
         "commands": results,
-        "onnx_meta": onnx_metadata
+        "onnx_meta": onnx_metadata,
+        "checksum": checksum,
     }
     with open(file_path, 'w') as file:
         json.dump(final_result, file, indent=4)
@@ -62,8 +71,12 @@ def main():
         result = execute_command(command)
         results.append(result)
 
+    # onnxにchecksumを追加
+    checksum = calculate_checksum(onnx_output)
+
+    # metadataを保存
     onnx_metadata = get_onnx_metadata(onnx_output)
-    save_results(results, onnx_metadata)
+    save_results(results, onnx_metadata, checksum)
 
 if __name__ == "__main__":
     main()
