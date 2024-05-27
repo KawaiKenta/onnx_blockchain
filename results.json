@@ -1,0 +1,19 @@
+{
+    "commands": [
+        {
+            "command": "echo Hello, World!",
+            "output": "Hello, World!\n"
+        },
+        {
+            "command": "ls",
+            "output": "main.py\nmodel.onnx\nrequirements.txt\nresults.json\nsample.json\n"
+        },
+        {
+            "command": "python --version",
+            "output": "Python 3.12.3\n"
+        }
+    ],
+    "onnx_meta": {
+        "error": "[Errno 2] No such file or directory: 'path/to/output.onnx'"
+    }
+}
