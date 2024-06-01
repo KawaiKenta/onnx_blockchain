@@ -4,5 +4,9 @@
         "ls",
         "python --version"
     ],
+    "inputs": [
+        "./datas/sample.txt",
+        "./datas/sample2.txt"
+    ],
     "output": "./model.onnx"
 }

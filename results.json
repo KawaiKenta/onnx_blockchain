@@ -6,13 +6,14 @@
         },
         {
             "command": "ls",
-            "output": "main.py\nmodel.onnx\nrequirements.txt\nresults.json\nsample.json\n"
+            "output": "blockchain\ndatas\nmain.py\nmodel.onnx\nrequirements.txt\nresults.json\nsample.json\n"
         },
         {
             "command": "python --version",
             "output": "Python 3.12.3\n"
         }
     ],
+    "input_checksum": "867bf7511c0110310b2126e3fc0330a49abef24dd2e4b168d80217df15b3cb8f",
     "onnx_meta": {
         "ir_version": 6,
         "producer_name": "pytorch",
@@ -31,5 +32,5 @@
             "output_x"
         ]
     },
-    "checksum": "898b09459976acd7085d6483d496c01a99bca2eb7c9b9063f1a49d140737367f"
+    "onnx_checksum": "898b09459976acd7085d6483d496c01a99bca2eb7c9b9063f1a49d140737367f"
 }
