@@ -1,0 +1,38 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "uri",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "metadata",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "checksum",
+                "type": "string"
+            }
+        ],
+        "name": "createONNXMeta",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getAllONNXes",
+        "outputs": [
+            {
+                "internalType": "contract ONNXMeta[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]
