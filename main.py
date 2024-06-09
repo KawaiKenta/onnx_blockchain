@@ -92,11 +92,12 @@ def get_onnx_metadata(onnx_file):
         return {"error": str(e)}
 
 
-def calculate_checksum(file_path):
+def calculate_checksum(files):
     sha256_hash = hashlib.sha256()
-    with open(file_path, "rb") as f:
-        for byte_block in iter(lambda: f.read(4096), b""):
-            sha256_hash.update(byte_block)
+    for file in files:
+        with open(file, "rb") as f:
+            for byte_block in iter(lambda: f.read(4096), b""):
+                sha256_hash.update(byte_block)
     return sha256_hash.hexdigest()
 
 
@@ -127,32 +128,17 @@ def main():
     results = execute_commands(commands)
 
     # data_input->input_checksum
-    input_checksum = hashlib.sha256()
-    for data in data_input:
-        with open(data, "rb") as f:
-            for byte_block in iter(lambda: f.read(4096), b""):
-                input_checksum.update(byte_block)
-    input_checksum = input_checksum.hexdigest()
+    input_checksum = calculate_checksum(data_input)
 
     # onnx->onnx_checksum
-    onnx_checksum = calculate_checksum(onnx_output)
+    onnx_checksum = calculate_checksum([onnx_output])
+
     # onnx->onnx_metadata
     onnx_metadata = get_onnx_metadata(onnx_output)
 
     # save to results.json
     save_results(env_info, results,  input_checksum, onnx_metadata,
                  onnx_checksum, file_path='results.json')
-
-    # upload to blockchain
-    # contract = load_contract("blockchain/Market/abi.json",
-    #                          "blockchain/Market/bytecode")
-    # metadata = load_json('results.json')
-    # transaction = contract.constructor(
-    #     upload_path,
-    #     metadata,
-    #     onnx_checksum,
-    # ).transact()
-    # tx_receipt = web3.eth.wait_for_transaction_receipt(transaction)
 
     # deploy via Market
     market = web3.eth.contract(
@@ -164,18 +150,6 @@ def main():
         onnx_checksum,
     ).transact()
     tx_receipt = web3.eth.wait_for_transaction_receipt(transaction)
-
-    # get contract address
-    # print("")
-    # abi = load_json("blockchain/abi.json")
-    # onnx = web3.eth.contract(
-    #     address=tx_receipt.contractAddress,
-    #     abi=abi
-    # )
-    # print(onnx.functions.getOwner().call())
-    # print(onnx.functions.getMetaData().call())
-    # print(onnx.functions.getURI().call())
-    # print(onnx.functions.getChecksum().call())
 
 
 if __name__ == "__main__":
