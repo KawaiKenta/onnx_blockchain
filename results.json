@@ -6,7 +6,7 @@
         },
         {
             "command": "pip freeze --all",
-            "output": "aiohttp==3.9.5\naiosignal==1.3.1\nattrs==23.2.0\nbitarray==2.9.2\ncertifi==2024.2.2\ncharset-normalizer==3.3.2\nckzg==1.0.2\ncytoolz==0.12.3\neth-account==0.11.2\neth-hash==0.7.0\neth-keyfile==0.8.1\neth-keys==0.5.1\neth-rlp==1.0.1\neth-typing==4.2.3\neth-utils==4.1.1\neth_abi==5.1.0\nfrozenlist==1.4.1\ngitdb==4.0.11\nGitPython==3.1.41\nhexbytes==0.3.1\nidna==3.7\njsonschema==4.22.0\njsonschema-specifications==2023.12.1\nlru-dict==1.2.0\nmultidict==6.0.5\nnumpy==1.26.4\nonnx==1.16.1\nparsimonious==0.10.0\npip==24.0\nprotobuf==5.27.0\npycryptodome==3.20.0\npyunormalize==15.1.0\nreferencing==0.35.1\nregex==2024.5.15\nrequests==2.32.3\nrlp==4.0.1\nrpds-py==0.18.1\nsetuptools==69.0.3\nsmmap==5.0.1\ntoolz==0.12.1\ntyping_extensions==4.12.0\nurllib3==2.2.1\nweb3==6.19.0\nwebsockets==12.0\nwheel==0.43.0\nyarl==1.9.4\n"
+            "output": "aiohttp==3.9.5\naiosignal==1.3.1\nattrs==23.2.0\nbitarray==2.9.2\ncertifi==2024.6.2\ncharset-normalizer==3.3.2\nckzg==1.0.2\ncytoolz==0.12.3\neth-account==0.11.2\neth-hash==0.7.0\neth-keyfile==0.8.1\neth-keys==0.5.1\neth-rlp==1.0.1\neth-typing==4.3.0\neth-utils==4.1.1\neth_abi==5.1.0\nfrozenlist==1.4.1\ngitdb==4.0.11\nGitPython==3.1.41\nhexbytes==0.3.1\nidna==3.7\njsonschema==4.22.0\njsonschema-specifications==2023.12.1\nlru-dict==1.2.0\nmultidict==6.0.5\nnumpy==2.0.0\nonnx==1.16.1\nparsimonious==0.10.0\npip==24.0\nprotobuf==5.27.1\npycryptodome==3.20.0\npyunormalize==15.1.0\nreferencing==0.35.1\nregex==2024.5.15\nrequests==2.32.3\nrlp==4.0.1\nrpds-py==0.18.1\nsetuptools==69.0.3\nsmmap==5.0.1\ntoolz==0.12.1\ntyping_extensions==4.12.2\nurllib3==2.2.1\nweb3==6.19.0\nwebsockets==12.0\nwheel==0.43.0\nyarl==1.9.4\n"
         },
         {
             "command": "nvidia-smi",
@@ -40,11 +40,12 @@
         "ir_version": 6,
         "producer_name": "pytorch",
         "producer_version": "2.0.1",
-        "domain": "",
+        "domain": "jp.ac.nagoya-u",
         "model_version": 0,
         "doc_string": "",
+        "model_author": "Kawai Kenta",
+        "model_license": "MIT",
         "graph_name": "torch_jit",
-        "graph_doc_string": "",
         "inputs": [
             "input_pillars",
             "input_coors_batch",
@@ -54,5 +55,5 @@
             "output_x"
         ]
     },
-    "onnx_checksum": "898b09459976acd7085d6483d496c01a99bca2eb7c9b9063f1a49d140737367f"
+    "onnx_checksum": "306c093f81b4ca55e2961f9076814dc77ada6ea871fd7f024f08658091b864ca"
 }

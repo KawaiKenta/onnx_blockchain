@@ -8,5 +8,10 @@
         "./datas/sample.txt",
         "./datas/sample2.txt"
     ],
+    "onnx_meta": {
+        "domain": "jp.ac.nagoya-u",
+        "model_author": "Kawai Kenta",
+        "model_license": "MIT"
+    },
     "output": "./model.onnx"
 }

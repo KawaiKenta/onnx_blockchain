@@ -16,7 +16,7 @@ web3.eth.defualtAccount = web3.eth.account.from_key(private_key)
 def load_commands(file_path):
     with open(file_path, 'r') as file:
         data = json.load(file)
-    return data['commands'], data['inputs'], data['output']
+    return data['commands'], data['inputs'], data['onnx_meta'], data['output']
 
 
 def load_contract(abi_path, bytecode_path):
@@ -82,14 +82,26 @@ def get_onnx_metadata(onnx_file):
             "domain": model.domain,
             "model_version": model.model_version,
             "doc_string": model.doc_string,
+            "model_author": model.metadata_props[0].value,
+            "model_license": model.metadata_props[1].value,
             "graph_name": model.graph.name,
-            "graph_doc_string": model.graph.doc_string,
             "inputs": [input.name for input in model.graph.input],
             "outputs": [output.name for output in model.graph.output],
         }
         return metadata
     except Exception as e:
         return {"error": str(e)}
+
+
+def add_info_to_onnx(onnx_file, meta):
+    model = onnx.load(onnx_file)
+    model.domain = meta['domain']
+    model.metadata_props.insert(0, onnx.StringStringEntryProto(
+        key="model_author", value=meta['model_author']))
+    model.metadata_props.insert(1, onnx.StringStringEntryProto(
+        key="model_license", value=meta['model_license']))
+
+    onnx.save(model, onnx_file)
 
 
 def calculate_checksum(files):
@@ -119,13 +131,16 @@ def main():
         sys.exit(1)
 
     file_path = sys.argv[1]
-    commands, data_input, onnx_output = load_commands(file_path)
+    commands, data_input, onnx_meta, onnx_output = load_commands(file_path)
 
     # create metadatas
     env_info = get_environment_info()
 
     # commandの実行
     results = execute_commands(commands)
+
+    # add metadata to onnx
+    add_info_to_onnx(onnx_output, onnx_meta)
 
     # data_input->input_checksum
     input_checksum = calculate_checksum(data_input)
@@ -135,7 +150,6 @@ def main():
 
     # onnx->onnx_metadata
     onnx_metadata = get_onnx_metadata(onnx_output)
-
     # save to results.json
     save_results(env_info, results,  input_checksum, onnx_metadata,
                  onnx_checksum, file_path='results.json')
